@@ -14,6 +14,7 @@
         <script src="http://angularjs.org/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script src="http://platform.twitter.com/widgets.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Creepster' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="http://angularjs.org/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://angularjs.org/css/docs.css">
         <link rel="stylesheet" href="http://angularjs.org/css/font-awesome.css">
@@ -21,22 +22,39 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <style type="text/css">
             body {
-                background-image: url("img/graular.png");
-                background-size: 400px;
-                background-position: top right;
-                background-repeat: no-repeat;
+                background: url('img/bg.gif');
+                background-repeat: repeat;
                 background-attachment: fixed;
             }
 
             [role="main"] { margin-bottom: 150px; }
 
             .graular-title {
-                height: 150px;
-                font-size: 36px;
-                margin-bottom: -30px !important;
+                height: 250px;
+                background-image: url("img/graular.png");
+                background-size: 400px;
+                background-position: top right;
+                background-repeat: no-repeat;
+                color: #000;
+                font-family: 'creepster', sans-serif;
+                font-size: 72px;
+                margin: 0 0 -30px 0 !important;
+                padding-top: 150px;
+                text-shadow: 2px 2px 0 #0F0, 4px -2px 0 #F0F, -2px 2px 0 #0FF;
+                transform:rotate(-3deg);
+                -webkit-transform:rotate(-3deg);
+
             }
 
-            section { margin-top: 50px; }
+            section {
+                background: #fff;
+                -moz-border-radius: 30px;
+                -webkit-border-radius: 30px;
+                border-radius: 30px;
+                box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
+                margin-top: 50px;
+                padding: 10px 50px 30px 50px;
+            }
 
             article { margin-top: 40px; }
 
@@ -45,6 +63,15 @@
             h4 { margin-top: 30px; }
 
             .nav-tabs { margin-top: 30px; }
+
+            .attr { color: rgb(20, 64, 252); }
+            .value { color: rgb(62, 142, 17); }
+            .tag  { color: rgb(7, 33, 145); }
+            .attr,
+            .value,
+            .tag { font-weight: bold; }
+
+            .underline { text-decoration: underline; }
         </style>
     </head>
     <body>
@@ -113,27 +140,27 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="gallery-gsp">
                             <pre>
-    &lt;div class="gallery-container"&gt;
-        &lt;g:if test="${page.slides}"&gt;
-            &lt;g:each in="${page.slides}" var="slide" status="i"&gt;
-                &lt;div class="slide-container"&gt;
-                    &lt;div class="slide"&gt;
-                        &lt;img src="${slide.image?.id ? "${slide.image.id}" : ''}" /&gt;
-                        &lt;span class="slide-number"&gt;${slide.index}&lt;/span&gt;
-                    &lt;/div&gt;
-                    &lt;h4&gt;${slide.title}&lt;/h4&gt;
-                    &lt;p&gt;${slide.text}&lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/g:each&gt;
-        &lt;/g:if&gt;
-    &lt;/div&gt;
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="value">"gallery-container"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;g:if</span> <span class="attr">test=</span><span class="value">"</span><span class="tag">&dollar;&#123;</span>page.slides<span class="tag">&#125;"&gt;</span>
+            <span class="tag">&lt;g:each</span> <span class="attr">in=</span><span class="tag">"&dollar;&#123;</span>page.slides<span class="tag">&#125;"</span> <span class="attr">var=</span><span class="value">"slide"</span> <span class="attr">status=</span><span class="value">"i"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;div <span class="attr">class=</span><span class="value">"slide-container"</span>&gt;</span>
+                    <span class="tag">&lt;div <span class="attr">class=</span><span class="value">"slide"</span>&gt;</span>
+                        <span class="tag">&lt;img</span> <span class="attr">src=</span><span class="value">"</span><span class="tag">&dollar;&#123;</span>slide.<span class="underline">image</span>?.id ? <span class="value">"</span>${slide.image.id}<span class="value">"</span> : <span class="value">''</span><span class="tag">}" /&gt;</span>
+                        <span class="tag">&lt;span</span> <span class="attr">class=</span><span cass="value">"slide-number"</span><span class="tag">&gt;&dollar;&#123;</span>slide.<span class="underline">index</span><span class="tag">&#125;&lt;/span&gt;</span>
+                    <span class="tag">&lt;/div&gt;</span>
+                    <span class="tag">&lt;h4&gt;&dollar;&#123;</span>slide.title<span class="tag">&#125;&lt;/h4&gt;</span>
+                    <span class="tag">&lt;p&gt;&dollar;&#123;</span>slide.text<span class="tag">&#125;&lt;/p&gt;</span>
+                <span class="tag">&lt;/div&gt;</span>
+            <span class="tag">&lt;/g:each&gt;</span>
+        <span class="tag">&lt;/g:if&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
                             </pre>
                         </div>
                     </div>
                 </div>
                 <p>This will give us a useable representation of the key data. There is no JavaScript involved and the data is available to the end user.</p>
                 <h4>Stage 2: Authenticated User Development</h4>
-                <p>Now that we have the data presented to the users it is time to inject our AngularJS.</p>
+                <p>Now that we have the data presented to the users it is time to inject our AngularJS as we develop the Authenticated User (CMS) experience.</p>
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
                         <li class="active">
@@ -234,6 +261,34 @@
                     </div>
                 </div>
                 <p>In this way it should be clear where our concerns lie. The directive takes care of DOM templating and data-model binding whilst the controller takes care of the usage logic and interactions. The directive can bind click events and such to controller functions but the controller should not directly manipulate the DOM.</p>
+                <p>We glue the two together by applying a data attribute to the top-level element we want to effect in the DOM. This keeps impact on the public experience minimal whilst supplying the CMS experience with the anchoring it needs to carry out it's manipulations.</p>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#gallery-gsp-with-attr" data-toggle="tab">gallery.gsp</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="gallery-gsp-with-attr">
+                            <pre>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="value">"gallery-container"</span> <span class="attr">data-graular-gallery</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;g:if</span> <span class="attr">test=</span><span class="value">"</span><span class="tag">&dollar;&#123;</span>page.slides<span class="tag">&#125;"&gt;</span>
+            <span class="tag">&lt;g:each</span> <span class="attr">in=</span><span class="tag">"&dollar;&#123;</span>page.slides<span class="tag">&#125;"</span> <span class="attr">var=</span><span class="value">"slide"</span> <span class="attr">status=</span><span class="value">"i"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;div <span class="attr">class=</span><span class="value">"slide-container"</span>&gt;</span>
+                    <span class="tag">&lt;div <span class="attr">class=</span><span class="value">"slide"</span>&gt;</span>
+                        <span class="tag">&lt;img</span> <span class="attr">src=</span><span class="value">"</span><span class="tag">&dollar;&#123;</span>slide.<span class="underline">image</span>?.id ? <span class="value">"</span>${slide.image.id}<span class="value">"</span> : <span class="value">''</span><span class="tag">}" /&gt;</span>
+                        <span class="tag">&lt;span</span> <span class="attr">class=</span><span cass="value">"slide-number"</span><span class="tag">&gt;&dollar;&#123;</span>slide.<span class="underline">index</span><span class="tag">&#125;&lt;/span&gt;</span>
+                    <span class="tag">&lt;/div&gt;</span>
+                    <span class="tag">&lt;h4&gt;&dollar;&#123;</span>slide.title<span class="tag">&#125;&lt;/h4&gt;</span>
+                    <span class="tag">&lt;p&gt;&dollar;&#123;</span>slide.text<span class="tag">&#125;&lt;/p&gt;</span>
+                <span class="tag">&lt;/div&gt;</span>
+            <span class="tag">&lt;/g:each&gt;</span>
+        <span class="tag">&lt;/g:if&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
             </article>
         </section>
 
