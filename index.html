@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <script src="http://angularjs.org/google-code-prettify/prettify.min.js"></script>
+        <script src="http://angularjs.org/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://platform.twitter.com/widgets.js"></script>
+        <link rel="stylesheet" href="http://angularjs.org/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://angularjs.org/css/docs.css">
+        <link rel="stylesheet" href="http://angularjs.org/css/font-awesome.css">
+        <link rel="stylesheet" href="http://angularjs.org/google-code-prettify/prettify.css" type="text/css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <style type="text/css">
+            body {
+                background-image: url("img/graular.png");
+                background-size: 400px;
+                background-position: top right;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+
+            [role="main"] { margin-bottom: 150px; }
+
+            .graular-title {
+                height: 150px;
+                font-size: 36px;
+                margin-bottom: -30px !important;
+            }
+
+            section { margin-top: 50px; }
+
+            article { margin-top: 40px; }
+
+            pre { margin-bottom: 40px; }
+
+            h4 { margin-top: 30px; }
+
+            .nav-tabs { margin-top: 30px; }
+        </style>
+    </head>
+    <body>
+
+    <div role="main" class="container">
+        <h1 class="graular-title">Have you seen our Graular?</h1>
+
+        <section class="row">
+            <h2>What is Graular?</h2>
+            <p>Graular is a a portemanteau term referring to the amalgamation of two technologies: Grails and Angular JS.</p>
+            <p>Graular uses a straight-up Grails application for serving content to both anonymous and authenticated users. Authenticated users then have a generous sprinkling of rainbow glitter applied to these pages in the form of Angular JS directives, controllers and services.</p>
+        </section>
+
+        <section class="row">
+            <h2>Why use Graular?</h2>
+            <p>Angular JS is a new and super-exciting JavaScript framework that allows for two-way data-binding and other shenanigans that can make our lives as developers a lot simpler than if we were to try and write the same functionalities from scratch. It is however a browser-side JavaScript implementation and lacks a few things that we require for our Find &amp; Watch project such as true SEO capabilities, legacy browser compatability and dual logic in the Angular Route Controller.</p>
+            <p>Grails is a more established server-side technology that we know and love. It is a comfortable pair of slippers that we take for granted and it does what we expect it to do. Unfortunately in order to do some of the more interesting CMS actions that we're trying to achieve it is lacking and would require some hefty JavaScript acrobatics in order to achieve the required results.</p>
+            <p>Graular combines these two technologies it a way designed to leverage the advantages and minimise the deficiencies of both. The app is essentially a Grails application for all users but authenticated users with the correct permissions have the AngularJS component injected into their experience along with it's relevant CSS. This allows for a stable and proven application for public users and all of the fun-time interactions for editrons.</p>
+        </section>
+
+        <section class="row">
+            <h2>How do I use Graular?</h2>
+            <p>Graular is a solution driven by the need for two different experiences of the same content. For this reason it is perhaps easiest to think of Graular development in two distinct chunks and approaching them in a very prescriptive manner.</p>
+            <article>
+                <h3>Developing for Graular</h3>
+                <p>Let's consider that we want to represent the following data to the end user;</p>
+                <pre>
+    {
+        name : "free-cats",
+        title : "Famous Cats for Free",
+        type : "gallery",
+        slides : [
+            {
+                title: "Slide 1",
+                text: "Here is slide 1",
+                image: {
+                    id: "slide-image-1.png"
+                }
+            }
+            {
+                title: "Slide 2",
+                text: "Here is slide 2",
+                image: {
+                    id: "slide-image-2.png"
+                }
+            }
+            {
+                title: "Slide 3",
+                text: "Here is slide 3",
+                image: {
+                    id: "slide-image-3.png"
+                }
+            }
+        ]
+    }
+                </pre>
+                <h4>Stage 1: Anonymous User Development</h4>
+                <p>The first consideration when beginning development of a Graular page is the development of the Anonymous User (public) experience. This encompasses the Grails part of the Graular experience.</p>
+                <p>We start developing the Graular to deliver a full public experience without the need to implement AngularJS. We can use any of the conveniences or other useful utilities built in to Grails to get the job done. The solution should be developed to the level that if the page was never content manageable it would provide the full and required experience.</p>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#gallery-gsp" data-toggle="tab">gallery.gsp</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="gallery-gsp">
+                            <pre>
+    &lt;div class="gallery-container"&gt;
+        &lt;g:if test="${page.slides}"&gt;
+            &lt;g:each in="${page.slides}" var="slide" status="i"&gt;
+                &lt;div class="slide-container"&gt;
+                    &lt;div class="slide"&gt;
+                        &lt;img src="${slide.image?.id ? "${slide.image.id}" : ''}" /&gt;
+                        &lt;span class="slide-number"&gt;${slide.index}&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;h4&gt;${slide.title}&lt;/h4&gt;
+                    &lt;p&gt;${slide.text}&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/g:each&gt;
+        &lt;/g:if&gt;
+    &lt;/div&gt;
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <p>This will give us a useable representation of the key data. There is no JavaScript involved and the data is available to the end user.</p>
+                <h4>Stage 2: Authenticated User Development</h4>
+                <p>Now that we have the data presented to the users it is time to inject our AngularJS.</p>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#graular-gallery-directive" data-toggle="tab">directive.js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="graular-gallery-directive">
+                            <pre>
+    'use strict';
+
+    var graularDirectives = angular.module('graularDirectives');
+
+    graularDirectives.directive('graularGallery', [function() {
+        return {
+            restrict: 'A',
+            controller: 'GraularGalleryCtrl',
+            compile: function($templateElement, $templateAttributes) {
+
+                var gContainer = $($templateElement.find('.gallery-container')),
+                    slideTemplate = gContainer.find('.slide-container').first(),
+                    slide = slideTemplate.find('.slide'),
+                    slideImage = slide.find('img');
+
+                var removeBtn = '&lt;button type="button" class="btn btn-small gallery-btn-remove cms-button" data-ng-click="removeSlide($index)" data-ng-show="page.slides.length > 1">Remove&lt;/button&gt;',
+                    moveBtn = '&lt;button type="button" class="btn btn-small btn-primary gallery-btn-move disabled hide cms-button">Move&lt;/button&gt;',
+                    addBtn = '&lt;button type="button" class="btn btn-small gallery-btn-add cms-button" data-ng-click="addSlide($event, $index)">Add&lt;/button&gt;';
+
+                slideImage.attr("data-ng-src", "{{slide.image.id}}");
+
+                slideImage.attr("data-ng-show", "slide.image");
+
+                slide.find('.slide-number').text('{{$index+1}}');
+
+                slide.append(removeBtn).append(moveBtn).append(addBtn);
+
+                slideTemplate.find('h4').text("{{slide.title}}");
+                slideTemplate.find('p').text("{{slide.text}}");
+                slideTemplate.attr('data-ng-repeat',"slide in page.slides");
+
+                gContainer.html(slideTemplate);
+
+                gContainer.attr('data-ng-model',"page.slides");
+            }
+        }
+    }]);
+
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <p>This directive is limited to only react to attributes matching 'graularGallery' (in the AngularJS manners).</p>
+                <p>In this directive we have replaced the Grails rendered data values with AngularJS.</p>
+                <p>Content is re-rendered to maintain one central location (Grails) for templating logic whilst still being able to apply core AngularJS directives to data-model manipulation. The directive reads the first element from a set of matching elements and uses it as it's template for replicating the set. Due to the order in which AngularJS compiles elements we use an 'inside-out' approach to manipulating elements within this template. We start with the most nested element and work our way outwards, applying directives and data-binding as we go.</p>
+                <p>We have also separated our logic around the actual interactions into a separate controller which we bind using the 'controller' part of the Angular directive object;</p>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#graular-gallery-controller" data-toggle="tab">controller.js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="graular-gallery-controller">
+                            <pre>
+    'use strict';
+
+    var graularControllers = angular.module('graularControllers');
+
+    graularControllers.controller('GraularGalleryCtrl', ['$scope', function($scope) {
+        $scope.page.slides = $scope.page.slides || [];
+        $scope.state = { dirty: false };
+
+        $scope.addSlide = function(event, index) {
+            $scope.page.slides.splice(index + 1, 0, { name: 'Slide ' + ($scope.page.slides.length + 1) });
+            $scope.setDirtyFlag();
+            event.stopPropagation();
+        };
+
+        $scope.removeSlide = function(index) {
+            $scope.page.slides.splice(index, 1);
+            $scope.setDirtyFlag()
+        };
+
+        $scope.setDirtyFlag = function() {
+            $scope.state.dirty = true;
+        };
+
+        $scope.populateSlide = function(slide,dragged) {
+            slide.image = dragged;
+        };
+
+        $scope.$on('pageSaved', function () {
+            $scope.state.dirty = false;
+        });
+    }]);
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <p>In this way it should be clear where our concerns lie. The directive takes care of DOM templating and data-model binding whilst the controller takes care of the usage logic and interactions. The directive can bind click events and such to controller functions but the controller should not directly manipulate the DOM.</p>
+            </article>
+        </section>
+
+
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+        <!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>-->
+        <!--<script src="js/plugins.js"></script>-->
+        <!--<script src="js/main.js"></script>-->
+    </div>
+    </body>
+</html>
